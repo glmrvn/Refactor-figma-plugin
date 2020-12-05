@@ -5,11 +5,11 @@ figma.ui.onmessage = async (msg) => {
         console.log(msg.codeNames)
         var compareNames = msg.codeNames
 
-        const instances = figma.root.findAll(node => node.type === "INSTANCE" && node.parent.type === "PAGE")
-        const frames = figma.root.findAll(node => node.type === "FRAME" && node.parent.type === "PAGE")
-        const components = figma.root.findAll(node => node.type === "COMPONENT" && node.parent.type === "PAGE")
+        const instances = figma.currentPage.findAll(node => node.type === "INSTANCE" && node.parent.type === "PAGE")
+        const frames = figma.currentPage.findAll(node => node.type === "FRAME" && node.parent.type === "PAGE")
+        // const components = figma.currentPage.findAll(node => node.type === "COMPONENT" && node.parent.type === "PAGE")
 
-        var allNames = [...frames, ...instances, ...components].map(it => it.name)
+        var allNames = [...frames, ...instances].map(it => it.name)
 
         let difference = allNames.filter(x => !compareNames.includes(x));
         var problemObjects = [];
@@ -28,9 +28,9 @@ figma.ui.onmessage = async (msg) => {
         if (problemObjects.length > 0) {
             figma.currentPage.selection = problemObjects
             figma.viewport.scrollAndZoomIntoView(problemObjects)
-            figma.closePlugin("🚨 Not used in code")
+            figma.closePlugin(`🚨 Not used in code ${problemObjects.length}`, problemObjects)
         } else {
-            figma.closePlugin()
+            figma.closePlugin(`👌 Used ${allNames.length} assets `, allNames)
         }
     }
 }
