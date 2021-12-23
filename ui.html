@@ -49,24 +49,12 @@
 
     <div class="container">
         Names used in code:
-        <div class="labelPlusInput">
-            <input type="key" class="input-style" id="inputId" placeholder="Paste names arrays here"></br></br>
-        </div>
-
+        <div class="labelPlusInput"><input type="key" class="input-style" id="inputId" placeholder="Paste names arrays here"></br></br></div>
         <input type="button" class="submitButton" value="Submit" id="submit" onclick="sendToPlugin();">
 
         <script>
-            // setInputValue();
-
-            // function setInputValue(){
-            //     onmessage = (event) => {
-            //         var day = event.data.pluginMessage.day;
-            //         document.getElementById("lightId").value = day;
-            //     }
-            // }
-    
             function sendToPlugin(){
-                var codeNames = document.getElementById("inputId").value;    
+                var codeNames = document.getElementById("inputId").value;
                 sendDay()
 
                 function sendDay(){
